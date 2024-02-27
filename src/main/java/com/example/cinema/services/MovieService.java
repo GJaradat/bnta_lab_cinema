@@ -28,6 +28,17 @@ public class MovieService {
         }
         return titles;
     }
+
+    public List<String> getMovies(int maxDuration){
+        ArrayList<String> titles = new ArrayList<>();
+        for (Movie movie : movieRepository.findAll()){
+            if(movie.getDuration() <= maxDuration){
+                titles.add(movie.getTitle());
+            }
+        }
+        return titles;
+    }
+
     public Optional<Movie> getMovieById(long id){
         return movieRepository.findById(id);
     }
@@ -44,4 +55,5 @@ public class MovieService {
     public void deleteMovie(long id){
         movieRepository.deleteById(id);
     }
+
 }

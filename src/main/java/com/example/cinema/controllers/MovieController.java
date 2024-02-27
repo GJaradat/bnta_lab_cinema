@@ -24,6 +24,12 @@ public class MovieController {
         return new ResponseEntity<>(movieService.getMovies(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/recommend")
+    @ResponseBody
+    public ResponseEntity<List<String>> showMovieList(@RequestParam int maxDuration){
+        return new ResponseEntity<>(movieService.getMovies(maxDuration), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<String> showMovie(@PathVariable long id){
         Optional<Movie> movie = movieService.getMovieById(id);

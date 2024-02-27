@@ -48,6 +48,15 @@ public class MovieController {
             return new ResponseEntity<>("That id is not in the database", HttpStatus.NOT_FOUND);
         }
         movieService.updateMovie(id,movie);
-        return new ResponseEntity<>(String.format("Movie entry %d has been updated.", movie.getId()), HttpStatus.FOUND);
+        return new ResponseEntity<>(String.format("Movie entry %d has been updated.", id), HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteMovie(@PathVariable long id){
+        if (movieService.getMovieById(id).isEmpty()){
+            return new ResponseEntity<>("That id is not in the database", HttpStatus.NOT_FOUND);
+        }
+        movieService.deleteMovie(id);
+        return new ResponseEntity<>(String.format("Movie entry %d has been removed.", id), HttpStatus.OK);
     }
 }

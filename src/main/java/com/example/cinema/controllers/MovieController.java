@@ -20,11 +20,9 @@ public class MovieController {
     MovieService movieService;
 
     @GetMapping
-    public ResponseEntity<String> showMovieList(){
-        String movies = movieService.getMovies().toString();
-        return new ResponseEntity<String>(movies, HttpStatus.OK);
+    public ResponseEntity<List<String>> showMovieList(){
+        return new ResponseEntity<>(movieService.getMovies(), HttpStatus.OK);
     }
-
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<String> showMovie(@PathVariable long id){
@@ -33,19 +31,14 @@ public class MovieController {
         if (movie.isEmpty()){
             return new ResponseEntity<>("Movie is not in database", HttpStatus.NOT_FOUND);
         }
-
         return new ResponseEntity<>(String.format("%d. %s has a rating of %s and is %d minutes long.",
-                                    movie.get().getId(), movie.get().getTitle(), movie.get(). getRating(), movie.get().getDuration()),
-                                    HttpStatus.FOUND);
+                                    movie.get().getId(), movie.get().getTitle(), movie.get(). getRating(), movie.get().getDuration()), HttpStatus.FOUND);
     }
 
 
     @PostMapping
     public ResponseEntity <String> newMovie(@RequestBody Movie movie){
         movieService.addMovie(movie);
-        return new ResponseEntity<>(String.format("Added %s to database", movie.getTitle()),
-                                    HttpStatus.CREATED);
-
-
+        return new ResponseEntity<>(String.format("Added %s to database", movie.getTitle()), HttpStatus.CREATED);
     }
 }

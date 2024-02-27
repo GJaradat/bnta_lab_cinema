@@ -19,8 +19,12 @@ public class MovieService {
     public MovieService() {}
 
 
-    public List<Movie> getMovies(){
-        return movieRepository.findAll();
+    public List<String> getMovies(){
+        ArrayList<String> titles = new ArrayList<>();
+        for (Movie movie : movieRepository.findAll()){
+            titles.add(movie.getTitle());
+        }
+        return titles;
     }
     public Optional<Movie> getMovieById(long id){
         return movieRepository.findById(id);

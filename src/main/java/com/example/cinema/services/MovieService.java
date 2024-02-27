@@ -33,4 +33,9 @@ public class MovieService {
     public void addMovie(Movie movie){
         movieRepository.save(movie);
     }
+
+    public void updateMovie(long id, Movie movie){
+        movie.setId(id);
+        addMovie(movie);
+    }
 }

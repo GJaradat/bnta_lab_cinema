@@ -32,13 +32,22 @@ public class MovieController {
             return new ResponseEntity<>("Movie is not in database", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(String.format("%d. %s has a rating of %s and is %d minutes long.",
-                                    movie.get().getId(), movie.get().getTitle(), movie.get(). getRating(), movie.get().getDuration()), HttpStatus.FOUND);
+                                    movie.get().getId(), movie.get().getTitle(), movie.get(). getRating(),
+                                    movie.get().getDuration()), HttpStatus.FOUND);
     }
-
 
     @PostMapping
     public ResponseEntity <String> newMovie(@RequestBody Movie movie){
         movieService.addMovie(movie);
         return new ResponseEntity<>(String.format("Added %s to database", movie.getTitle()), HttpStatus.CREATED);
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<String> updateMovie(@PathVariable long id, @RequestBody Movie movie){
+        if (movieService.getMovieById(id).isEmpty()){
+            return new ResponseEntity<>("That id is not in the database", HttpStatus.NOT_FOUND);
+        }
+        movieService.updateMovie(id,movie);
+        return new ResponseEntity<>(String.format("Movie entry %d has been updated.", movie.getId()), HttpStatus.FOUND);
     }
 }

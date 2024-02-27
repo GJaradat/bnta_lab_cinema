@@ -18,15 +18,13 @@ public class MovieController {
 
     @Autowired
     MovieService movieService;
-
+    
     @GetMapping
-    public ResponseEntity<List<String>> showMovieList(){
-        return new ResponseEntity<>(movieService.getMovies(), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/recommend")
     @ResponseBody
-    public ResponseEntity<List<String>> showMovieList(@RequestParam int maxDuration){
+    public ResponseEntity<List<String>> showMovieList(@RequestParam(required = false) Integer maxDuration){
+        if (maxDuration == null){
+            return new ResponseEntity<>(movieService.getMovies(), HttpStatus.OK);
+        }
         return new ResponseEntity<>(movieService.getMovies(maxDuration), HttpStatus.OK);
     }
 

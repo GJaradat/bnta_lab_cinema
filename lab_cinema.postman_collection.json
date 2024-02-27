@@ -31,14 +31,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/movies/recommend?maxDuration=120",
+					"raw": "localhost:8080/movies?maxDuration=120",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"movies",
-						"recommend"
+						"movies"
 					],
 					"query": [
 						{
